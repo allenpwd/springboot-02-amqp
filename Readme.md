@@ -36,7 +36,11 @@ RabbitMQ是一个由erlang开发的AMQP(Advanved Message Queue Protocol)的开�
 
 - Exchange：
 交换器，用来接收生产者发送的消息并将这些消息路由给服务器中的队列。
-Exchange有4种类型：direct(默认)，fanout, topic, 和headers，不同类型的Exchange转发消息的策略有所区别
+Exchange有4种类型：direct(默认)，fanout(广播), topic, 和headers，不同类型的Exchange转发消息的策略有所区别
+    - fanout：把所有发送到该Exchange的消息路由到所有与它绑定的Queue中
+    - direct：把消息路由到那些binding key与routing key完全匹配的Queue中
+    - topic：相比于direct，支持模糊匹配，“*”用于匹配一个单词，“#”用于匹配多个或0单词
+    - headers：根据发送的消息内容中的headers属性进行完全匹配
 
 - Queue：
 消息队列，用来保存消息直到发送给消费者。它是消息的容器，也是消息的终点。一个消息可投入一个或多个队列。消息一直在队列里面，等待消费者连接到这个队列将其取走。

@@ -3,6 +3,9 @@ package pwd.allen.amqp;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.core.Queue;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.FilterType;
+import org.springframework.stereotype.Service;
 import pwd.allen.amqp.bean.Book;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,13 +14,16 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import pwd.allen.amqp.config.MyAMQPConfig;
+import pwd.allen.amqp.service.BookService;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(classes = MyAMQPConfig.class)
+//@ComponentScan(excludeFilters = @ComponentScan.Filter(value = Service.class))
 public class Springboot02AmqpApplicationTests {
 
 	@Autowired
@@ -38,6 +44,7 @@ public class Springboot02AmqpApplicationTests {
 
 		//创建队列
 		amqpAdmin.declareQueue(new Queue("amqpadmin.queue",true));
+		amqpAdmin.declareQueue(new Queue("allen.news",true));
 
 		//创建绑定规则
 		amqpAdmin.declareBinding(new Binding("amqpadmin.queue", Binding.DestinationType.QUEUE,"amqpadmin.exchange","amqp.haha",null));
