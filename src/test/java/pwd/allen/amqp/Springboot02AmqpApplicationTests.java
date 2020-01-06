@@ -22,8 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = MyAMQPConfig.class)
-//@ComponentScan(excludeFilters = @ComponentScan.Filter(value = Service.class))
+@SpringBootTest
 public class Springboot02AmqpApplicationTests {
 
 	@Autowired
